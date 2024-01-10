@@ -1,0 +1,22 @@
+.element {
+  margin: 25px;
+
+}
+
+.footer-elements {
+  float: right;
+}
+
+.impression-cacher {
+  display: none !important;
+}
+
+@media print {
+  .print-hide {
+    display: none;
+  }
+
+  .nav-sticky.navbar-custom {
+    display: none;
+  }
+}

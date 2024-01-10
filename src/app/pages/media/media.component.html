@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+<section class="hero-section-help" id="home" style="background-size: cover; height: 50%; opacity: 1;">
+  <div class="container">
+    <div class="ml-4 row">
+      <div class="container">
+
+        <section style="">
+          <div class=" mb-5 ml-5 col-xl-12"><h3 class="mb-4" style="font-weight: lighter;">Médias et presse</h3>
+            <div *ngIf="medias.length == 0">Aucune donnée</div>
+            <div class="card col-md-6" style="padding: 20px;" *ngFor="let m of medias">
+              <a [href]="m.link">{{m.title}}</a><br>
+              <p>{{m.description}}</p>
+            </div>
+          </div>
+          <div class="col-xl-12">
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

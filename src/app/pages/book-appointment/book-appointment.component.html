@@ -1,0 +1,225 @@
+<app-navbar></app-navbar>
+<img src="assets/images/doctor_up.png" class="hide-mobile" style="position: fixed; bottom: -10%;
+    right: -20%;
+    width: 550px;
+    z-index: -9;" />
+<div class="container mt-4" style="padding-top: 86px;">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="justify-content-center text-center" style="width: 100%; margin-bottom: 16px;">
+          <div class="card-body">
+
+            <ngb-alert type="danger" *ngIf="user==null" [dismissible]="false">
+              <div class="">Vous devez être connecter pour prendre rendez-vous, veuillez vous connectez <a
+                  [routerLink]="['/login']" [queryParams]="{return_url : redirect_path}">ici</a></div>
+            </ngb-alert>
+            <h4 class="text-dark-b text-center mt-4">{{caller == "PATIENT" ? "Prenez votre rendez-vous en ligne" :
+              "Ajoutez un rendez-vous à votre planning"}}</h4>
+            <form>
+              <div class=" container mt-5 mobile-width-100" style="width: 80%;">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class=" mb-1 input-group w-100-h-100">
+                      <input placeholder="Nom" (change)="validateForm()" [(ngModel)]="data.first_name" type="text"
+                        class="input-pro input-login input-shadow form-control" name="first_name"
+                        style="padding: 6% !important;">
+                    </div><br>
+                  </div>
+                  <div class="col-md-6">
+                    <div class=" mb-1 input-group w-100-h-100">
+                      <input placeholder="Prénom" (change)="validateForm()" type="text"
+                        class="input-pro input-login input-shadow form-control" name="last_name"
+                        [(ngModel)]="data.last_name" style="padding: 6% !important;">
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class=" mb-1 input-group w-100-h-100">
+                      <input placeholder="Email" type="text" class="input-pro input-login input-shadow form-control"
+                        name="email" [(ngModel)]="data.email" style="padding: 6% !important;">
+                    </div><br>
+                  </div>
+                  <div class="col-md-6">
+                    <div class=" mb-1 input-group w-100-h-100">
+                      <input placeholder="Téléphone" (change)="validateForm()" type="text"
+                        class="input-pro input-login input-shadow form-control" name="phone" id="phone"
+                        style="width:100%;padding: 6% !important;padding-left: 55px !important;">
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-4" *ngIf="showElements">
+                    <div class=" mb-1 input-group w-100-h-100">
+                      <input placeholder="Nom Docteur" (change)="validateForm()" type="text"
+                        class="input-pro input-login input-shadow form-control" name="doctorName"
+                        [(ngModel)]="data.doctorName"
+                        style="width:100%;padding: 6% !important;padding-left: 55px !important;">
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-4" *ngIf="showElements">
+                    <div class=" mb-1 input-group w-100-h-100">
+                      <input placeholder="Spécialité Docteur" (change)="validateForm()" type="text"
+                        class="input-pro input-login input-shadow form-control" name="doctorSpeciality"
+                        [(ngModel)]="data.doctorSpeciality"
+                        style="width:100%;padding: 6% !important;padding-left: 55px !important;">
+                    </div>
+                  </div>
+                </div><br>
+                <div class=" mb-1 input-group " *ngIf="data.type=='Consultation à domicile'">
+                  <input placeholder="Adresse" (change)="validateForm()" type="text"
+                    class="input-pro input-login input-shadow form-control" name="address" [(ngModel)]="data.address"
+                    style="padding: 3% !important;">
+                </div><br>
+                <div class=" mb-1 input-group">
+                  <select placeholder="Motif de consultation" (change)="validateForm()" name="motif"
+                    [(ngModel)]="data.motif" class="input-pro input-login input-shadow form-control">
+                    <option value="">Motif de consultation</option>
+                    <option value="Première consultation (classique)">Première consultation (classique)</option>
+                    <option value="Consultation familiale (1 à plusieurs actes)">Consultation familiale (1 à plusieurs
+                      actes)</option>
+                    <option value="Suivi médical">Suivi médical</option>
+                  </select>
+                  <!--input placeholder="Motif de consultation" type="text" class="input-pro input-login input-shadow form-control" name="motif" [(ngModel)]="data.motif" style="padding: 6% !important;"-->
+                </div><br>
+                <div class=" mb-1 input-group">
+                  <select placeholder="Type de consultation" name="type" (change)="validateForm()"
+                    [(ngModel)]="data.type" class="input-pro input-login input-shadow form-control">
+                    <option value="">Type de consultation</option>
+                    <option value="Consultation au cabinet">Consultation au cabinet</option>
+                    <option value="Téléconsultation" *ngIf="caller=='PATIENT' && doctor !== null && doctor?.do_teleconsult == 1">
+                      Téléconsultation
+                    </option>
+                    <option value="Consultation à domicile">Consultation à domicile</option>
+                  </select>
+                </div>
+                <br><br>
+                <button *ngIf="caller!='PATIENT'" (click)="toggleElements()"
+                  class=" mr-0 btn btn-secondary no-shadow mb-2">
+                  {{showElements?"Annuler":"Rendez-vous pour Confrère"}}
+                </button>
+                <div class="text-left" *ngIf="caller=='PATIENT'">
+                  <h6 class="text-dark-b">Pour qui prenez-vous ce rendez-vous</h6><br>
+                  <!--div class="custom-checkbox custom-control custom-control-inline"><input type="checkbox"  [(ngModel)]="data.is_me" name="is_me" (change)="loadInitialUserData(!data.is_me)"
+                                                                                           id="for_who"
+                                                                                           class="custom-control-input" ><label
+                    class="custom-control-label" for="for_who">Pour moi</label></div-->
+                  <div class="mt-3 form-group">
+                    <div>
+                      <div class="custom-checkbox custom-control custom-control-inline">
+                        <input type="radio" id="exampleCustomInlines" name="is_me" value="true"
+                          (change)="loadInitialUserData(false)" class="custom-control-input" [checked]="data.is_me">
+                        <label class="custom-control-label" for="exampleCustomInlines">Pour moi</label>
+                      </div>
+                      <div class="custom-checkbox custom-control custom-control-inline">
+                        <input type="radio" id="exampleCustomInline2" name="is_me" value="false"
+                          (change)="loadInitialUserData(true)" class="custom-control-input" [checked]="!data.is_me">
+                        <label class="custom-control-label" for="exampleCustomInline2">Pour un proche</label>
+                      </div>
+                    </div>
+                  </div>
+                  <br><br>
+                  <p class="text-dark-b">
+                    En confirmant ce rendez-vous , vous vous engagez à l'honorer. Pensez bien à annuler le plus tôt
+                    possible en cas d'imprévu , Merci de votre bonne foi.
+                  </p>
+                </div>
+                <!--div class="text-left" *ngIf="doctor?.do_teleconsult == 1">
+                  <h6 class="text-dark-b">Téléconsultation</h6><br>
+                  <div class="custom-checkbox custom-control custom-control-inline"><input type="checkbox"  [(ngModel)]="data.teleconsult" name="teleconsult"
+                                                                                           id="teleconsult"
+                                                                                           class="custom-control-input" ><label
+                    class="custom-control-label" for="teleconsult">Rdv pour téléconsultation</label></div><br><br>
+                  <p class="text-dark-b">
+                    Les frais d'une téléconsultation sont payé en ligne une fois le RDV valider.
+                  </p>
+                </div-->
+              </div>
+              <br><br>
+            </form>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" style="padding: 16px;">
+        <div class="text-center">
+          <ngb-datepicker class="mt-5" [(ngModel)]="data.date" *ngIf="doctor!= null" #dp
+            (dateSelect)="onDateSelection($event)" [displayMonths]="1" [dayTemplate]="t" outsideDays="hidden">
+          </ngb-datepicker>
+
+          <ng-template #t let-date let-focused="focused">
+            <span class="custom-day" [class.range]="isInside(date, null)">
+              {{ date.day }}
+            </span>
+          </ng-template><br>
+        </div>
+
+        <p class="text-dark-b" style="padding: 15px;">Le calendrier vous montre les horaires de disponibilité du
+          professionnel de santé. Cliquez sur un jour et les heures se chargeront sur le champ <strong>Heure</strong>
+        </p>
+        <br>
+        <div class="row" style="padding:16px;">
+          <div class="col-md-5">
+            <div class=" mb-1 input-group w-100-h-100">
+              <input placeholder="Date" disabled
+                value="{{data.date != null ? (data.date.year+'-'+api.addZeroToNumber(data.date.month)+'-'+api.addZeroToNumber(data.date.day)) : ''}}"
+                type="text" class="input-pro input-login input-shadow form-control" name="first_name" style="padding: 12% !important;height: 50px; margin-top: 21%;margin-bottom: auto;">
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class=" mb-1 input-group w-100-h-100">
+              <label>Heure</label><br>
+
+              <select *ngIf="caller=='PATIENT'" placeholder="Heure" name="time" (change)="validateForm()"
+                [(ngModel)]="data.time" class="input-pro input-login input-shadow form-control" style="height: 40px;">
+                <option [value]="h.real_id" *ngFor="let h of hours; index as i" selected>
+                  {{api.formatTimeFromString(h.start_time)}}</option>
+              </select>
+
+              <select *ngIf="caller=='DOCTOR'" placeholder="Heure" name="time" (change)="validateForm()"
+                [(ngModel)]="data.time" class="input-pro input-login input-shadow form-control" style="height: 40px;">
+                <option [value]="h" *ngFor="let h of times; index as i" selected>{{h}}</option>
+              </select>
+              <!--ngb-timepicker  (change)="validateForm()" [(ngModel)]="data.time"></ngb-timepicker-->
+              <!--input placeholder="Heure" type="text" class="input-pro input-login input-shadow form-control" name="last_name" style="padding: 20% !important;"-->
+            </div>
+          </div>
+        </div><br><br>
+        <div class="text-center" style="padding: 15px;">
+          <div class="card-body" *ngIf="caller=='PATIENT'">
+            <div class="card-title">Mode de paiements acceptés</div>
+            <hr>
+            <div class="text-left ml-5">
+              <div class="custom-checkbox custom-control custom-control-inline"><input type="checkbox"
+                  id="exampleCustomInline3" class="custom-control-input" checked disabled><label
+                  class="custom-control-label" for="exampleCustomInline4">En liquide</label></div><br>
+              <div class="custom-checkbox custom-control custom-control-inline"><input type="checkbox"
+                  id="exampleCustomInline4" class="custom-control-input" checked disabled><label
+                  class="custom-control-label" for="exampleCustomInline">Mobile money</label></div><br>
+              <div class="custom-checkbox custom-control custom-control-inline"><input type="checkbox"
+                  id="exampleCustomInline" class="custom-control-input" checked disabled><label
+                  class="custom-control-label" for="exampleCustomInline">Paypal</label></div>
+              <br><br>
+            </div>
+          </div>
+          <strong *ngIf="data.type !=''">Prix de la consultation ({{data.type}}) :</strong> <br>
+          <h4 class="text-success" *ngIf="data.type !=''">
+            {{ data.type == "Consultation au cabinet" ? this.doctor?.prices.data.price_cabinet_consultation : data.type == "Consultation à domicile" ? this.doctor?.prices.data.price_house_consultation : this.doctor?.prices.data.price_teleconsultation}}
+            {{this.doctor?.prices.data.currency}}
+          </h4>
+
+          <button *ngIf="user != null && data.type != 'Téléconsultation'" type="submit" (click)="saveRdv()"
+            class="submit-button mr-0 btn btn-secondary no-shadow mb-2"
+            style="height: auto;line-height: 1;margin-top: 0; width: 100%;padding: 15px; border-radius: 5px; margin-bottom: 35px !important;">
+            {{caller=="PATIENT" ? "Paiement en liquide" : "Enregistrer"}}
+          </button>
+          <div *ngIf="showButton">
+            <button *ngIf="showButton" class="btn btn-info" style="margin-bottom: 14px; width: 100%;box-shadow: none;"
+              (click)="doMobilePay()">Paiement Mobile</button><br>
+            <ngx-paypal [config]="payPalConfig" *ngIf="showButton"></ngx-paypal>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

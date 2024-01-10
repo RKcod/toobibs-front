@@ -1,0 +1,77 @@
+<style>
+  .modal-dialog {
+    width: 350px !important;
+  }
+</style>
+<div class="">
+  <button type="button" class="close close-blue" aria-label="Close" (click)="closeCall('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 *ngIf="direction == 'calling'" style="color: #707070; padding: 10px; ">{{first_name}} {{last_name}}<br></h4>
+  <div *ngIf="direction == 'calling'" style="padding-left: 13px;
+    padding-bottom: 16px;">Durée : {{display}}</div>
+
+</div>
+<div class="text-center">
+  <div *ngIf="direction != 'calling'">
+    <img src="assets/images/default.png" class="event-profile"/><br>
+
+    <h3 style="color: #707070; ">{{first_name}} {{last_name}}</h3>
+  </div>
+
+
+  <div *ngIf="direction == 'receiver'">
+    <img src="assets/images/incoming.gif" style="width: 300px;"/>
+    <!--audio #audioIn id="audioIn" src="assets/audio/incoming.mp3"></audio-->
+
+    <div class="bottom-buttons" style="padding: 20px;">
+      <span class="mdi mdi-phone end-call" (click)="answerCall(2)"></span>
+      <span class="mdi mdi-phone answer-call" (click)="answerCall(1)" style="margin-left: 25px"></span>
+    </div>
+  </div>
+
+  <div *ngIf="direction == 'calling'">
+    <!--div class="remote_calls" style="width: 100% !important;" *ngFor="let remote of remoteCalls;" [id]="remote"></div-->
+
+    <!--div style="width: 100% !important;" *ngFor="let callId of remoteCalls" [id]="callId" class="remote"></div-->
+
+    <div style="width: 100% !important;" id="agora_remote" class="remote"></div>
+    <div  style="bottom: 119px;
+    width: 200px !important;
+    height:200px;
+    position: absolute;
+    right: 18px;
+    border: 1px solid;
+}" [id]="localCallId"></div>
+    <!--div *ngFor="let callId of remoteCalls" [id]="callId" class="remote"></div-->
+    <!--div class="bottom-buttons" style="padding: 20px;">
+      <span class="mdi mdi-phone end-call" (click)="closeCall('Call ended')"></span>
+    </div-->
+    <!--video #hisVideo style="width: 100% !important;" autoplay playsinline></video>
+    <video #myVideo style="bottom: 119px;
+    width: 200px !important;
+    position: absolute;
+    right: 18px;
+    border: 1px solid;
+}" autoplay playsinline></video-->
+    <div class="bottom-buttons" style="padding: 20px;">
+      <span class="mdi mdi-phone end-call" (click)="closeCall('Call ended')"></span>
+    </div>
+  </div>
+
+  <!--audio #audio id="audio" [src]="audio_src"></audio-->
+  <!--div class="blue-box" *ngIf="event != null && event.status > 0">
+    <span style="font-size: 15px;">Décision</span><br>
+    <span style="color: #707070; font-size: 12px" [ngClass]="{'text-primary' : (event.status == 0), 'text-success' : (event.status == 1), 'text-danger' : (event.status == 2) }">{{event.status == 0 ? "EN ATTENTE" : event.status == 1 ? "VALIDER" : "REJETER"}}</span>
+  </div-->
+  <!--div class="blue-box">
+    <span style="font-size: 15px;">Mode de paiement</span><br>
+    <span style="color: #707070; font-size: 12px">Paiement Mobile</span>
+  </div-->
+  <!--div style="display: flex; margin-bottom: 20px; margin-right: 15px; margin-left: 15px;" *ngIf="event != null">
+
+    <button class="btn event-no" *ngIf="user.user_type =='DOCTOR' &&  event.status == 0" (click)="updateEvent(2)">Refuser consultation</button>
+    <button class="btn event-yes" *ngIf="user.user_type =='DOCTOR' &&  event.status == 0" (click)="updateEvent(1)">Accepter consultation</button>
+  </div-->
+
+</div>

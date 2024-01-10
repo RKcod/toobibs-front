@@ -1,0 +1,25 @@
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+  }
+  
+  .date {
+    margin-top: 10px;
+    color: grey;
+    font-size: small;
+  }
+  
+  @media screen and (min-width:500px) {
+    .float-button {
+      float: right;
+      margin-top: -100px;
+      margin-bottom: 70px;
+    }
+  }
+  
+  .modal {
+    position: relative;
+    z-index: 9999;
+    /* Valeur supérieure à celle de la navbar */
+  }

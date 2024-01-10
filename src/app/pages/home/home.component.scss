@@ -1,0 +1,46 @@
+.card-height-description{
+    height: 245px;
+}
+
+.hero-title{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #1D87BB 67%,
+    #1D87BB 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-emphasis-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      font-size: 190px;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+  .card img {
+    transition: transform 0.3s; 
+  }
+  
+  /* Définir l'effet de transformation au survol */
+  .card img:hover {
+    transform: scale(1.1); /* Zoom de 110% au survol */
+  }
+
+  @media(max-width:800px){
+    .small-screen-responsive{
+      margin-top: -15rem;
+    }
+  }

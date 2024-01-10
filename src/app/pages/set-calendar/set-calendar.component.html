@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<img src="assets/images/planning.png" class="hide-mobile" style="position: fixed; bottom: -10%;
+    right: -5%;
+    z-index: -9;
+    width: 325px;"/>
+<div class="container mt-4" style="padding-top: 86px;">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="justify-content-center text-center" style="width: 100%; margin-bottom: 16px;">
+          <div class="card-body">
+
+            <h5 class="text-dark-b text-left mt-4" style="font-weight: lighter;">
+              Mes Disponibilités
+              <button style="float: right;border: 1px solid #ccc;" (click)="open()" class="card" placement="bottom" ngbTooltip="Editez vos disponibilités">
+                <span class="mdi mdi-plus"></span>
+              </button>
+              <div style="clear:both;"></div>
+            </h5>
+
+            <div id='calendar'></div>
+
+            <full-calendar [options]="calendarOptions" (eventClick)="handleEventClick($event)" #mvp></full-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

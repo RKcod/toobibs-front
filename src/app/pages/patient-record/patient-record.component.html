@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+<div class="container container-table-eleved">
+    <div class="title">
+        <h3 class="text-center" style="color: #1D87BB;">Liste de mes patients</h3>
+    </div>
+    <form (ngSubmit)="rechercherPatients()">
+      <div class="d-flex">
+          <div class="row">
+             <div class="col">
+                <input type="text" class="form-control mb-4" placeholder="Rechercher par nom" style="min-width: 300px; min-height: 45px;" [(ngModel)]="nom" name="nom" id="nom">
+             </div>
+             <div class="col">
+              <button type="submit" class="btn btn-primary mb-4" style="background-color: #1D87BB;">Rechercher</button>
+              <button type="submit" class="btn btn-danger mb-4 ml-2" (click)="refresh()">Tout rétablir</button>
+             </div>
+          </div>
+      </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th> Noms </th>
+                <th> Prénoms </th>
+                <th> Téléphone </th>
+                <th> Email </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let element of dataSource" [routerLink]="'/patient-menu/' + element.phone" style="cursor: pointer;" class="row_border_patient_list">
+                <td>{{ element.first_name }}</td>
+                <td>{{ element.last_name }}</td>
+                <td>{{ element.phone }}</td>
+                <td>{{ element.email }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

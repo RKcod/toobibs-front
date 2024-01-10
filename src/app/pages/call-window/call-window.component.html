@@ -1,0 +1,43 @@
+<style>
+  .modal-dialog {
+    width: 350px !important;
+  }
+</style>
+<div class="">
+  <button type="button" class="close close-blue" aria-label="Close" (click)="closeCall('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 *ngIf="direction == 'calling'" style="color: #707070; padding: 10px; ">{{first_name}} {{last_name}}<br></h4>
+  <div *ngIf="direction == 'calling'" style="padding-left: 13px;
+    padding-bottom: 16px;">Durée : {{display}}</div>
+
+</div>
+<div class="text-center">
+  <div *ngIf="direction != 'calling'">
+    <img src="assets/images/default.png" class="event-profile"/><br>
+
+    <h3 style="color: #707070; ">{{first_name}} {{last_name}}</h3>
+  </div>
+
+  <div *ngIf="direction == 'caller'">
+    <img src="assets/images/outgoing.gif" style="width: 300px;"/>
+
+    <div class="bottom-buttons" style="padding: 20px;">
+      <span class="mdi mdi-phone end-call" (click)="closeCall('Call ended')"></span>
+    </div>
+  </div>
+
+  <div *ngIf="direction == 'calling'">
+    <div style="width: 100% !important;" id="agora_remote" class="remote">
+    </div>
+    <div style="bottom: 119px; width: 200px !important; height: 200px; position: absolute; right: 18px; border: 1px solid;" id="agora_local"></div>
+    <div class="bottom-buttons" style="padding: 20px;">
+      <span class="mdi mdi-phone end-call" (click)="closeCall('Call ended')"></span>
+    </div>
+  </div>
+</div>
+<style>
+  #agora_remote video {
+    position: relative !important;
+  }
+</style>

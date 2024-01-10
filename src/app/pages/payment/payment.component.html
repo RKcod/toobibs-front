@@ -1,0 +1,47 @@
+<div class="">
+  <button type="button" class="close close-blue" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div style="padding: 20px">
+
+  <div class="">
+    <h4>Payez vos frais de consultation par Orange Money/Mobile Money</h4><br>
+
+    <div *ngIf="in_progress">
+      <h6 class="text-center">Votre payment est en cours, veuillez confirmer la transaction sur votre mobile<br>
+      Une fois confirmer cette interface disparaîtra et votre rendez-vous sera prise en compte</h6>
+    </div>
+
+    <div *ngIf="!in_progress">
+      <div class=" mb-1 input-group">
+        <label>Opérateur</label>
+        <select placeholder="Opérateur" name="type" (change)="countryChange()" [(ngModel)]="operator" class="input-pro input-login input-shadow form-control" >
+          >
+          <option value="ORANGE_CMR" selected>Orange Cameroun</option>
+          <option value="MTN_CMR">MTN Cameroun</option>
+          <option value="ORANGE_CIV">Orange Côte d’Ivoire</option>
+          <option value="MTN_CIV">MTN Côte d’Ivoire</option>
+          <option value="MOOV_CIV">MOOV Côte d’Ivoire</option>
+        </select>
+      </div><br>
+      <label>Numéro de téléphone</label><br>
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control "  name="phone" id="phone2" type="text" style="padding: 3% 3%;padding-left: 55px;"
+                 >
+        </div>
+      </div><br>
+    </div>
+
+
+
+
+    <div class="" style="display: flex; margin-bottom: 20px; margin-right: 15px; margin-left: 15px;">
+      <button class="btn event-no" (click)="activeModal.dismiss('Cross click')">Fermer</button>
+      <button class="btn event-yes" *ngIf="!in_progress" (click)="save()">Payer</button>
+    </div>
+
+  </div>
+
+</div>

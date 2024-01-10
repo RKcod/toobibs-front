@@ -1,0 +1,71 @@
+<nav class="navbar-custom sticky sticky-dark navbar-light  nav-sticky navbar navbar-expand-lg fixed-top">
+  <div class="container"><a routerLink="/home" class="logo text-uppercase navbar-brand"><img
+    src="assets/images/logo_toobib_noir.png" alt="" class="logo-dark logo-res" height="50"></a>
+    <button aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" class="navbar-toggler" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"><i class="mdi mdi-menu"></i></button>
+    <!-- Offline menu -->
+    <div id="navbarCollapse" class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" *ngIf="user == null">
+      <div data-nav="list" class="navbar-collapse">
+        <ul id="mySidenav" class="ml-auto mobile-nav navbar-center-item navbar-nav" style="margin-bottom: -20px;
+    height: 61px;">
+          <li class="mt-2  nav-item"><a routerLink="/home" class="nav-link" style="color: rgb(29, 135, 187);"> </a></li>
+          <li class="nav-item"><a routerLink="/help" class="nav-link" style="color: rgb(29, 135, 187);"> Besoin d'aide ?</a>
+          </li>
+          <li class="menu-pro nav-item" style="height: 43px;"><a routerLink="/register-pro" class="nav-link" style="color: rgb(29, 135, 187); "> Vous êtes
+            professionnel de santé ?</a></li>
+        </ul>
+        <ul id="mySidenav" class=" navbar-center navbar-nav">
+          <li class="text-center nav-item"><a routerLink="/login" class="nav-link login-menu-mobile" style="color: rgb(29, 135, 187);">
+            Connexion <br> Prendre rendez-vous</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- Menu when connected -->
+    <div id="navbarCollapse" class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" *ngIf="user != null">
+      <div data-nav="list" class="navbar-collapse">
+        <ul id="mySidenav" class="ml-auto mobile-nav navbar-center-item navbar-nav " style="margin-bottom: -20px;
+    height: 61px;">
+          <li class="mt-2  nav-item"><a routerLink="/home" class="nav-link" style="color: rgb(29, 135, 187);"> </a></li>
+          <li class="nav-item"><a routerLink="/help" class="nav-link" style="color: rgb(29, 135, 187);"> Besoin d'aide ?</a>
+          </li>
+          <li class="nav-item" [ngClass]="{'active' : active_menu=='appointments'}"><a routerLink="/appointments" class="nav-link" style="color: rgb(29, 135, 187);"> Mes rendez-vous</a>
+          </li>
+          <!--li class="nav-item" *ngIf="user != null && user.user_type=='DOCTOR'" [ngClass]="{'active' : active_menu=='planning'}"><a routerLink="/planning" class="nav-link" style="color: rgb(29, 135, 187);"> Mon planning</a>
+          </li-->
+          <li class="nav-item" *ngIf="user != null && user.user_type=='DOCTOR'" [ngClass]="{'active' : active_menu=='availabilities'}"><a routerLink="/availabilities" class="nav-link" style="color: rgb(29, 135, 187);"> Mes disponibilités</a>
+          </li>
+          <!--li class="text-center nav-item" *ngIf="user != null && user.user_type=='PATIENT'"><a routerLink="/book-appointment" class="nav-link" style="color: rgb(29, 135, 187);">
+            Prendre rendez-vous
+          </a></li-->
+          <li class="text-center nav-item" *ngIf="user != null && user.user_type=='DOCTOR'" [ngClass]="{'active' : active_menu=='relaunch'}"><a routerLink="/relaunch" class="nav-link" style="color: rgb(29, 135, 187);">
+            Relances
+          </a></li>
+          <li class="text-center nav-item" *ngIf="user != null && user.user_type=='DOCTOR'" [ngClass]="{'active' : active_menu=='patient-list'}"><a routerLink="/patient-list" class="nav-link" style="color: rgb(29, 135, 187);">
+            Dossier Patient
+          </a></li>
+          <li class="text-center nav-item" *ngIf="user != null && user.user_type=='DOCTOR'" [ngClass]="{'active' : active_menu=='prescriptions'}"><a routerLink="/prescriptions" class="nav-link" style="color: rgb(29, 135, 187);">
+            Mes Prescriptions
+          </a></li>
+
+         
+
+        </ul>
+        <ul id="mySidenav" class=" navbar-center navbar-nav">
+          <li class="text-center nav-item" ngbDropdown>
+            <a class="nav-link"  style="color: rgba(52, 58, 64, 0.9); cursor: pointer;"  id="dropdownBasic1" ngbDropdownToggle>
+            {{user== null ? "" : user.first_name}}
+              <img class="img" src="{{user == null ? 'assets/images/default.png': api.WEB_BASED_URL+user.profile_picture}}" style="width: 40px; height: 40px; border-radius: 50%"/>
+            </a>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <!--button ngbDropdownItem routerLink="/edit-profile" *ngIf="user != null && user.user_type=='DOCTOR'">Paramètres</button-->
+              <button ngbDropdownItem routerLink="/edit-profile">Paramètres</button>
+              <!--button ngbDropdownItem routerLink="/profile/{{user != null ?  user.id : ''}}">Profile</button-->
+              <button ngbDropdownItem (click)="logout()">Déconnexion</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

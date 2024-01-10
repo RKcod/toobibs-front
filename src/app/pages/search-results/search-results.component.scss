@@ -1,0 +1,21 @@
+agm-map {
+  height: 300px;
+
+}
+
+
+td.fc-timegrid-slot.fc-timegrid-slot-label.fc-scrollgrid-shrink {
+  display: none;
+  visibility: hidden;
+}
+.fc-timegrid-axis {
+  display: none !important;
+  visibility: hidden;
+}
+
+.fc-daygrid-body {
+  display: none;
+}
+.fc-view-harness.fc-view-harness-active td, .fc-view-harness.fc-view-harness-active th, .fc-view-harness.fc-view-harness-active table {
+  border: 0px;
+}

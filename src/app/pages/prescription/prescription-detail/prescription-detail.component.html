@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-2" style="padding-top: 86px;">
+    <div class="card" id="prescription">
+        <div class="row p-3">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="justify-content-center text-center">
+                            <img class="card-img-top w-25 h-25" src="assets/images/logo_toobib_noir.png"
+                                alt="toobib logo" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title justify-content-center text-align">
+                            <h2>Ordonance</h2>
+                        </div>
+                        <div class="card-body">
+                            <p class="element">
+                                Nom du patient: <span style="font-weight: 500;"> {{ prescription?.first_name +' '+
+                                    prescription?.last_name}} </span>
+                            </p>
+                            <!--                            <p class="element"> Age: 30 ans </p>-->
+                            <p class="element" *ngIf="prescription?.profile"> Identité: {{ prescription?.profile }}</p>
+                            <p class="element" *ngIf="prescription?.gender"> Sexe: {{ prescription?.gender }}</p>
+                            <p class="element" *ngIf="prescription?.reason">Motif: {{ prescription?.reason }} </p>
+                            <div class="medicaments">
+                                <h3> Medicaments </h3>
+                                <div class="medicament"
+                                    *ngFor="let medicine of prescription?.prescribed?.data; let i = index;">
+                                    <h1> {{ i+1 }} </h1>
+                                    <p *ngIf="medicine?.medicine?.data.name" class="element"> Nom du medicament:
+                                        {{medicine?.medicine?.data.name}}</p>
+                                    <p class="element"> Posologie: {{medicine?.quantity + ' ' +
+                                        medicine?.medicine?.data.type + ' ' +' tout les '+ medicine?.frequency}} </p>
+                                    <p *ngIf="medicine?.duration" class="element"> Duree du traitement:
+                                        {{medicine?.duration}} </p>
+                                    <p *ngIf="medicine?.other_precisions" class="element"> Autre indication: {{
+                                        medicine?.other_precisions }}</p>
+                                </div>
+                            </div>
+                            <div class="footer-elements">
+                                <p class="element"> par Dr. {{prescription?.doctor?.data.first_name + ' ' +
+                                    prescription?.doctor?.data.last_name}}</p>
+                                <p class="element"> Le {{ formatdate(prescription?.created_at) }} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-info print-hide" (click)="printDiv()">
+        Imprimez
+    </button>
+
+
+    
+
+</div>

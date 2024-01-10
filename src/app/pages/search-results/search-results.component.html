@@ -1,0 +1,181 @@
+<app-navbar></app-navbar>
+<section class=""
+         style="padding-top: 77px;background: #93cbdf;">
+  <div class="">
+    <div class="justify-content-center row">
+      <div class="section-parent col-lg-12">
+        <div class="hero-wrapper text-center mb-4">
+          <div class="mt-4 justify-content-center" style="margin: auto; width: 70%;">
+            <form class="form-inline" autocomplete="off" (ngSubmit)="searchDoctor(1, 'all')">
+              <div class="mr-1  input-group">
+                <div class="input-group-prepend" style="border: none;">
+                  <span class="section-input-group input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-dual">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                  </span>
+                </div>
+                <input placeholder="Médecin, spécialité..." type="text" class="input-home no-shadow form-control" style="width: 300px;height: 55px;" [(ngModel)]="data.query" name="query">
+              </div>
+              <div class="mr-1 input-group">
+                <div class="input-group-prepend" style="border: none;">
+                  <span class="section-input-group input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    class="icon-dual">
+                                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10"
+                                                                                    r="3"></circle>
+                                                                                  </svg>
+                  </span>
+                </div>
+                <input placeholder="où ?" autocomplete="off" type="text" class="input-home no-shadow form-control" style="width: 300px;height: 55px;" [(ngModel)]="data.location" (keypress)="searchLocation($event)" name="location">
+                <br>
+                <div class="card suggestion" *ngIf="is_proposing">
+                  <h6>Suggestion(s)</h6>
+                  <span (click)="closeProposition()" style="right: 16px; position: absolute; cursor: pointer;">x</span>
+                  <span *ngIf="proposing">Chargement...</span>
+                  <div *ngIf="!proposing">
+                    <a (click)="setAddress(a)" *ngFor="let a of propositions" class="suggestion"> {{a}}</a>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="submit-button mr-0 btn btn-secondary no-shadow"
+                      style="height: 55px;line-height: 1;margin-top: 0;">Rechercher
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="row" style="padding: 20px; padding-bottom: 0; background: #fbfbfb;">
+  <div class="col-md-3 text-center">
+    <div class="search-filter">FILTRER PAR</div>
+  </div>
+  <div class="col-md-2 text-center">
+    <div class="search-filter" (click)="searchDoctor(1, 'all')" [ngClass]="{'active' : filter=='all'}"
+         style="color: rgb(29, 135, 187);cursor: pointer;">Tous
+    </div>
+  </div>
+  <div class="col-md-3 text-center">
+    <div class="search-filter" (click)="searchDoctor(1, 'do_teleconsult')"
+         [ngClass]="{'active' : filter=='do_teleconsult'}" style="color: rgb(29, 135, 187);cursor:pointer;">
+      Téléconsultation
+    </div>
+  </div>
+  <div class="col-md-3 text-center">
+    <div class="search-filter" (click)="searchDoctor(1, 'availability')"
+         [ngClass]="{'active' : filter=='do_teleconsult'}" style="color: rgb(29, 135, 187);cursor:pointer;">
+      Disponibilité à venir
+    </div>
+  </div>
+  <!--div class="col-md-3 text-center">
+    <div class="search-filter" style="color: rgb(29, 135, 187);">Type de consultation</div>
+  </div-->
+</div>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card" *ngIf="results.length == 0" style="padding: 16px;">
+        Aucun résultat
+      </div>
+      <div *ngFor="let r of results; index as index">
+        <div class="justify-content-center search-results text-center card"
+             style="width: 100%; margin-bottom: 16px; height: 400px;">
+          <div class="card-body row">
+            <div class="col-md-5">
+              <div class="row">
+                <div class="col-md-5 text-left">
+                  <img width="80px" height="80px" class="img-circle text-center"
+                       src="{{api.WEB_BASED_URL+r.profile_picture}}"
+                       alt="Card image cap" style="border-radius: 50%; display: block;margin-bottom: 10px;">
+                </div>
+                <div class="col-md-7 text-left" style="font-size: 1.1em;">
+              <span [routerLink]="['/profile/'+r.id]"
+                    style="color: rgb(29, 135, 187); cursor:pointer;">{{r.first_name}} {{r.last_name}}</span><br>
+                  <span>{{r.speciality_name.name}}</span><br>
+
+                </div>
+                <div class="col-md-12 text-left">
+                  <small *ngIf="r.do_teleconsult==1" style="margin-top: 5px;">
+                    <span><span class="mdi mdi-video video-round"></span> Téléconsultation</span><br>
+                    <!--a style="color: rgb(29, 135, 187);margin-left: 23px;">En savoir plus</a-->
+                  </small>
+                  <small>
+                    <span>{{r.address}}</span><br>
+                    <span>{{r.email}}</span><br>
+                    <span>{{r.phone}}</span>
+                  </small>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-7">
+              <div class="cal-left-but" (click)="prevWeek(index)">
+                <span class="mdi mdi-chevron-left"></span>
+              </div>
+              <div class="cal-right-but" (click)="nextWeek(index)">
+                <span class="mdi mdi-chevron-right"></span>
+              </div>
+              <mwl-calendar-week-view
+                [events]="r.events"
+                locale="fr"
+                [dayStartHour]="8"
+                [dayStartMinute]="0"
+                [dayEndHour]="19"
+                [dayEndMinute]="0"
+                [viewDate]="r.viewDate"
+                (eventClicked)="eventClick2($event)">
+              </mwl-calendar-week-view>
+              <span class="no-av" *ngIf="r.availabilities.data.length == 0">Aucune disponibilité</span>
+              <!--full-calendar [options]="r.calendar_options"></full-calendar-->
+              <!--ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [options]="getConf(r.availabilities.data)" [displayMonths]="1" [dayTemplate]="t"
+                              outsideDays="hidden">
+              </ngb-datepicker>
+
+              <ng-template #t let-date let-focused="focused">
+              <span class="custom-day"
+                    [class.range]="isInside(date, r.availabilities.data)">
+                {{ date.day }}
+              </span>
+              </ng-template-->
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" *ngIf="r.confirmed" [routerLink]="['/book-appointment/'+r.id]"
+                    class="submit-button mr-0 btn btn-secondary no-shadow mb-3"
+                    style="margin-top: -108px;height: auto;line-height: 1;margin-top: 0; width: 250px; border-radius: 5px;">
+              Prenez rendez-vous
+            </button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <ngb-pagination class="d-flex justify-content-end"
+                      [(page)]="meta.pagination.current_page"
+                      [pageSize]="meta.pagination.per_page"
+                      [collectionSize]="meta.pagination.total"
+                      (pageChange)="searchDoctor($event,null)">
+      </ngb-pagination>
+    </div>
+    <div class="col-md-5" style="margin-bottom: 20px;">
+      <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="my_marker_icon.url"></agm-marker>
+        <agm-marker [latitude]="r.lat" [longitude]="r.lng" [title]="r.label" [iconUrl]="their_marker_icon.url" *ngFor="let r of positions" [openInfoWindow]="true">
+          <agm-info-window>
+            {{r.doctor}}<br>
+            {{r.phone}}<br>
+            Centre : {{r.label}}
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </div>
+    <br><br>
+  </div>
+</div>
+
+<app-footer></app-footer>

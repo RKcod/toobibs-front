@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+<section class="hero-section-help" id="home" style="background-size: cover; height: 50%; opacity: 1;">
+  <div class="container">
+    <div class="ml-4 row">
+      <!--div class="mb-5 col-xl-12"><h3 style="font-weight: lighter;">Bonjour comment pouvons-nous vous aidez aujourd'hui ?</h3></div-->
+      <div class="container">
+        <div class="mb-5 ml-4 col-xl-12">
+          <!--div class="col-xl-8">
+            <div class="mr-1  input-group"><input placeholder="Recherchez dans nos articles" type="text"
+                                                  class="input-help form-control">
+              <div class="input-group-prepend" style="border: none;"><span class="section-input-group input-group-text"><svg
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-dual"><circle
+                cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span></div>
+            </div>
+          </div-->
+        </div>
+        <section style="background: url('assets/images/help_bg.png') 0% 0% / auto;">
+          <div class=" mb-5 ml-5 col-xl-12"><h3 class="mb-4" style="font-weight: lighter;">Questions fréquentes ?</h3>
+            <!--div class="row">
+              <div class="mb-3 col-xl-5">
+                <div>
+                  <button class="button-faq btn btn-secondary">Mot de passe oublié , comment le réinitialiser</button>
+                </div>
+              </div>
+              <div class="mb-3 col-xl-6">
+                <div>
+                  <button class="button-faq btn btn-secondary">Tout savoir sur le paiment en ligne d'une consultation
+                    video
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3  col-xl-6">
+                <div>
+                  <button class="button-faq btn btn-secondary">Tout savoir sur le paiment en ligne d'une consultation
+                    video
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3 col-xl-3">
+                <div>
+                  <button class="button-faq btn btn-secondary">Annuler un rendez-vous</button>
+                </div>
+              </div>
+              <div class="mb-3  col-xl-5">
+                <div>
+                  <button class="button-faq btn btn-secondary">Mot de passe oublié , comment le réinitialiser</button>
+                </div>
+              </div>
+              <div class="mb-3  col-xl-5">
+                <div>
+                  <button class="button-faq btn btn-secondary">Mot de passe oublié , comment le réinitialiser</button>
+                </div>
+              </div>
+            </div-->
+          </div>
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="mb-3 col-xl-6" *ngFor="let f of faqs">
+                    <div>
+                      <button class="button-faq-2 btn btn-secondary">
+                        {{f.question}}<br><br>
+                        {{f.answer}}
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>

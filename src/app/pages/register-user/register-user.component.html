@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+<div class="justify-content-center text-center" style="margin-top: 15%;">
+  <div class="container">
+    <div class="justify-content-center text-center">
+      <div class="login-image text-center" style="width: 870px;">
+        <div class="login-image-left" style="background-image: url('assets/images/login-image-2.jpg');">
+          <div class="login-image-center" style="font-size: 1.2em; font-weight: bold;">Bienvenue sur Toobib</div>
+        </div>
+        <div class="login-image-right">
+          <div class="card" style="height: 575px;">
+            <div class="p-0 card-body">
+              <div class="row">
+                <div class="mt-3 col-xl-12 no-margin-left-mobile" style="margin-left: 55px;"><img
+                  src="assets/images/logo_toobib_noir.png" height="50"
+                  style="display: block; margin-left: auto; margin-top: 20px; margin-right: auto;">
+                </div>
+                <div class="text-center  justify-content-center mb-5 col-xl-12  no-margin-left-mobile"
+                     style="margin-left: 80px;">
+                  <p
+                    style="letter-spacing: 2.1px; color: rgb(38, 64, 77);width: 50%;
+    margin: 12px auto;
+    text-align: left;
+    padding-left: 11px;" class="button-border-left form-label">Inscription</p>
+                  <form class="form-responsive" style="margin-left: 25%;" (ngSubmit)="signup()">
+                    <div class="form-group">
+                      <input placeholder="Nom" type="text" class="input-login form-control" name="first_name"
+                             [(ngModel)]="data.first_name">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="Prénom" type="text" class="input-login form-control" name="last_name"
+                             [(ngModel)]="data.last_name">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="Téléphone" type="number" class="input-login form-control" name="phone"
+                             id="phone" style="">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="Adresse" type="text" class="input-login form-control" name="address"
+                             id="address" style="" [(ngModel)]="data.address">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="email" type="email" class="input-login form-control" name="email"
+                             [(ngModel)]="data.email">
+                    </div>
+                    <div class="form-group">
+                      <input placeholder="mot de passe" type="password" class="input-login form-control" name="password"
+                             [(ngModel)]="data.password">
+                    </div>
+                    <button class="btn btn-primary btn-left-0" type="submit"
+                            style="width: 61%;margin-bottom: 20px; margin-top: 10px; margin-left: -38%; background: rgb(29, 135, 187); border-radius: inherit;">
+                      Inscription
+                    </button>
+                    <br><a routerLink="/login"
+                           style="letter-spacing: 2.1px; color: rgb(38, 64, 77); margin-bottom: 10%;margin-right: 25px;">Se connecter
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="icon-dual">
+                      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                      <polyline points="10 17 15 12 10 7"></polyline>
+                      <line x1="15" y1="12" x2="3" y2="12"></line>
+                    </svg>
+                  </a></form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="">
+  <button type="button" class="close close-blue" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div style="padding: 20px">
+
+  <div class="">
+    <h4>Renseignez vos parcours</h4><br>
+
+
+    <label>Type</label><br>
+    <div class=" mb-1 input-group">
+
+      <select placeholder="Type" name="type" [(ngModel)]="data.type"
+              class="input-pro input-login  form-control">
+        <option value="ACADEMIQUE">Parcours académique</option>
+        <option value="EXPERIENCE">Expérience professionelle</option>
+        <option value="CERTIFICATION">Certifications</option>
+      </select>
+
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group-pro mb-1 input-group w-100-h-100">
+          <input placeholder="Année début"   [(ngModel)]="data.start_year" type="number" class="input-pro input-login  form-control" name="first_name" style="padding: 6% !important;">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group-pro mb-1 input-group w-100-h-100">
+          <input placeholder="Année fin"   [(ngModel)]="data.end_year" type="number" class="input-pro input-login  form-control" name="first_name" style="padding: 6% !important;">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group-pro mb-1 input-group w-100-h-100">
+          <input placeholder="A"   [(ngModel)]="data.at" type="text" class="input-pro input-login  form-control" name="first_name" style="padding: 6% !important;">
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="input-group-pro mb-1 input-group w-100-h-100">
+          <input placeholder="Intitulé"   [(ngModel)]="data.title" type="text" class="input-pro input-login  form-control" name="first_name" style="padding: 4% !important;">
+        </div>
+      </div>
+    </div>
+      <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="input-group-pro mb-1 input-group w-100-h-100">
+          <textarea placeholder="Description"   [(ngModel)]="data.description" class="input-pro input-login  form-control" name="first_name" style="padding: 6% !important;"></textarea>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="" style="display: flex; margin-bottom: 20px; margin-right: 15px; margin-left: 15px;">
+      <button class="btn event-no" (click)="activeModal.dismiss('Cross click')">Fermer</button>
+      <button class="btn event-yes" (click)="save()">Enregistrer</button>
+    </div>
+
+  </div>
+
+</div>
+
+<!--div class="container mt-4" style="padding-top: 86px;">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="justify-content-center text-center" style="width: 100%; margin-bottom: 16px;">
+        <div class="card-body">
+          <div class="mb-1 input-group">
+            <input placeholder="Rechercher mes documents" type="text" class="input-pro input-login  form-control" name="query" style="box-shadow: none;">
+          </div><br>
+
+          <div class="text-left input-pro input-login doc-filer active">Tout</div>
+          <div class="text-left input-pro input-login doc-filer">Aujourd'hui</div>
+          <div class="text-left input-pro input-login doc-filer">Hier</div>
+          <div class="text-left input-pro input-login doc-filer">La semaine dernière</div>
+          <div class="text-left input-pro input-login doc-filer">Plus ancien</div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8  card-body">
+      <h3 style="color: #26404D;">Tout</h3><br>
+
+      <div style="color: #26404D">Récent</div><br>
+      <div class="card text-center doc-card">
+        <div class="card-body">
+          <span style="color: #918E8E; float: right; cursor: pointer;">x</span>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+
+      <div style="color: #26404D">Aujourd'hui - Date du jour</div><br>
+      <div class="card text-center doc-card">
+        <div class="card-body">
+          <span style="color: #918E8E; float: right; cursor: pointer;">x</span>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div-->

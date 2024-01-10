@@ -1,0 +1,179 @@
+<app-navbar></app-navbar>
+<img src="assets/images/doctor_up.png" class="hide-mobile" style="position: fixed; bottom: -10%; right: -20%; width: 550px; z-index: -9;" />
+<div class="container mt-4" style="padding-top: 86px;">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="justify-content-center text-center" style="width: 100%; margin-bottom: 16px;">
+                    <div class="card-body">
+                        <h4 class="text-dark-b text-center mt-4">Ajoutez une ordonnance</h4>
+                        <form [formGroup]="prescriptioform">
+                            <div class="container mt-5 mobile-width-100" formGroupName="patient" style="width: 80%;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-1 input-group w-100-h-100">
+                                            <input placeholder="Nom" formControlName="firstName" [value]="appointment?.first_name" [disabled]="disabled" type="text" class="input-pro input-login input-shadow form-control" name="first_name" style="padding: 6% !important;">
+                                        </div><br>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-1 input-group w-100-h-100">
+                                            <input placeholder="Prénom" formControlName="lastName" [value]="appointment?.last_name" [disabled]="disabled" type="text" class="input-pro input-login input-shadow form-control" name="last_name" style="padding: 6% !important;">
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-1 input-group w-100-h-100">
+                                            <input placeholder="Email" formControlName="email" [value]="appointment?.email" [disabled]="disabled" type="text" class="input-pro input-login input-shadow form-control" name="email" style="padding: 6% !important;">
+                                        </div><br>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-1 input-group w-100-h-100">
+                                            <input placeholder="Téléphone" formControlName="phone" [value]="appointment?.phone" [disabled]="disabled" type="text" class="input-pro input-login input-shadow form-control" name="phone" id="phone" style="width:100%;padding: 6% !important;padding-left: 55px !important;">
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-1 input-group ">
+                                            <label style="color: black;">Sexe</label>
+                                            <select placeholder="Sexe" name="sex" formControlName="gender" class="input-pro input-login input-shadow  form-control" style="width: 100%;">
+                                                <option value="Masculin"> Masculin</option>
+                                                <option value="Feminin"> Feminin</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-1 input-group ">
+                                            <label style="color: black;">Profil</label>
+                                            <select placeholder="Profile" name="type" formControlName="profile" class="input-pro input-login input-shadow  form-control" style="width: 100%;">
+                                                <option value="Senior"> Senior</option>
+                                                <option value="Adulte"> Adulte</option>
+                                                <option value="Jeune"> Jeune</option>
+                                                <option value="Enfant + de 6ans"> Enfant + de 6ans </option>
+                                                <option value="Enfant - de 6ans"> Enfant - de 6ans </option>
+                                                <option value="Bébé ([0-1 an[)">Bébé ([0-1 an[)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div><br />
+                                <div class="mb-1 input-group ">
+                                    <textarea placeholder="Motif de la Prescription" formControlName="reason" class="input-pro input-login input-shadow  form-control" name="reason" style="padding: 6% !important; width: 100%;"></textarea>
+                                </div><br>
+                            </div>
+                            <br><br>
+                            <h5 class="text-dark-b text-center mt-4 " *ngIf="medicines.controls.length > 0">Medicaments</h5>
+                            <div class="medicaments"  formArrayName="medicines">
+                                <div class="medicament" style=" margin-top: 20px;" *ngFor="let medicine of medicines.controls; let i = index;">
+                                    <div class="d-flex justify-content-between">
+                                        <h4>Medicament {{i + 1}}</h4>
+                                        <button style=" outline: none; border: none; color: #e2294d; background: rgba(0,0,0,0); font-size: larger" (click)="removeMedicineAtIndex(i)"> X </button>
+                                    </div>
+                                    <div class="meddicine-form" [formGroupName]="i">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="input-group-pro mb-1 input-group autocomplete">
+                                                    <label [for]="'myInput' + i">Nom du Medicament</label>
+                                                    <input [id]="'myInput' + i" formControlName="name" type="text" class="input-pro input-login input-shadow   form-control" name="medicine_name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="mb-1 input-group">
+                                                    <label for="type">Type</label>
+                                                    <select placeholder="Type" name="type" id="type" formControlName="type" class="input-pro input-shadow  input-login  form-control" style="width: 85% !important; margin-left: 20px; margin-right: 20px;">
+                                                        <option value="Globules"> Globules</option>
+                                                        <option value="Comprimés"> Comprimés</option>
+                                                        <!-- ... (autres options) ... -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label style="font-size: medium;">Posology</label><br />
+                                            <div class="col-md-12 col-sm-12">
+                                                <label style="font-size: small;">Durée </label>
+                                                <div class="row" formGroupName="duration">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class=" mb-1 input-group ">
+                                                            <label for="number">Nombre</label>
+                                                            <select placeholder="number" id="number" name="number" formControlName="number" class="input-pro input-login input-shadow  form-control" style="width: 85% !important; margin-left: 20px; margin-right: 20px;">
+                                                                <option *ngFor="let number of createRange(30);" [value]="number"> {{number}} </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class=" mb-1 input-group ">
+                                                            <label>Unité</label>
+                                                            <select placeholder="Type" name="type" formControlName="unit" class="input-pro input-login input-shadow  form-control" style="width: 85% !important; margin-left: 20px; margin-right: 20px;">
+                                                                <option value="jour(s)"> jour(s) </option>
+                                                                <option value="semaine(s)"> semaine(s) </option>
+                                                                <option value="mois(s)"> mois(s) </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <label style="font-size: small">Dosage</label>
+                                                    <div class="col-md-4">
+                                                        <div class=" mb-1 input-group ">
+                                                            <label>Quantité</label>
+                                                            <select placeholder="number" name="number" formControlName="quantity" class="input-pro input-shadow  input-login  form-control">
+                                                                <option selected>Quantité</option>
+                                                                <option value="0.5">0.5</option>
+                                                                <option *ngFor="let number of createRange(30);" [value]="number"> {{number}} </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class=" mb-1 input-group ">
+                                                            <label>Fréquence</label>
+                                                            <input type="text" formControlName="frequency" class="input-pro input-shadow  input-login  form-control" name="frequency">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class=" mb-1 input-group ">
+                                                            <label>Heure de la prise</label>
+                                                            <input type="text" name="number" formControlName="time_of_intake" class="input-pro input-shadow  input-login  form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label style="font-size: small;">Date de la première prise</label>
+                                                <div class=" mb-1 input-group">
+                                                    <input type="date" formControlName="date_first_taken" class="input-pro input-shadow  input-login  form-control" name="first_intake_date">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label style="font-size: small">Date de renouvellement de l’ordonnance</label>
+                                                <div class=" mb-1 input-group">
+                                                    <input type="date" class="input-pro input-shadow  input-login  form-control" formControlName="renewal_date" name="first_intake_date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class=" mb-1 input-group ">
+                                                    <label>Autres précisions</label>
+                                                    <textarea placeholder="Autres précisions" formControlName="other_precisions" class="input-pro input-shadow  input-login  form-control" name="reason" style="padding: 6% !important;"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button (click)="addMedicine()" style="float: right; outline: none; border: none; color: #1F87BC; background: rgba(0,0,0,0); margin-top: 50px;">Ajouter un médicament</button>
+                            <button (click)="getFormdata()" class="btn btn-primary align-self-end float-right" style="margin-top:100px; margin-right: -120px !important; margin-bottom: 20px;">Enregistrer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

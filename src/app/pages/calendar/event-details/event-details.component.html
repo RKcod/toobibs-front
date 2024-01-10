@@ -1,0 +1,81 @@
+<style>
+  .modal-dialog {
+    width: 350px !important;
+  }
+</style>
+<div class="">
+  <button type="button" class="close close-blue" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="">
+  <img src="assets/images/default.png" class="event-profile" /><br>
+  <div class="blue-box">
+    <span style="font-size: 15px;">{{event?.first_name}} {{event?.last_name}}</span><br>
+    <span style="color: #707070; font-size: 12px">{{event?.phone}}</span>
+  </div>
+  <div class="blue-box">
+    <span style="font-size: 15px;">Lieu de consultation</span><br>
+    <span style="color: #707070; font-size: 12px">{{event?.type}}</span>
+  </div>
+  <div class="blue-box" *ngIf="event?.type=='Consultation à domicile'">
+    <span style="font-size: 15px;">Adresse du patient</span><br>
+    <span style="color: #707070; font-size: 12px">{{event?.address}}</span>
+  </div>
+  <div class="blue-box">
+    <span style="font-size: 15px;">Motif de consultation</span><br>
+    <span style="color: #707070; font-size: 12px">{{event?.motif}}</span>
+  </div>
+  <div class="blue-box">
+    <span style="font-size: 15px;">Mode de paiement</span><br>
+    <span style="color: #707070; font-size: 12px">{{event?.payment_method}}</span>
+  </div>
+  <div class="blue-box">
+    <span style="font-size: 15px;">Statut</span><br>
+    <span style="color: #707070; font-size: 12px">{{event?.status == 0 || event?.status == 1 ? "VALID&Eacute;" :
+      event?.status == 2 ? "ANNULER" : "EN ATTENTE DE REMBOURSEMENT"}}</span>
+  </div>
+  <div class="blue-box" *ngIf="event != null && checkDatePassed2() && event.status<2">
+    <span style="font-size: 15px;">Un souci ?</span><br>
+    <span style="color: #707070; font-size: 12px">Votre rendez-vous n'a pas eu lieu ? Pas de souci écrivez nous à
+      l'adresse contact@toobibs.com ou par appel au +225 08 94 21 84</span>
+  </div>
+  <div class="blue-box" *ngIf="event != null && checkDatePassed() && event.status<2">
+    <span style="font-size: 15px;">Vous souhaitez annuler ce RDV ?</span><br>
+    <button type="button" class="btn btn-primary" style="font-size: 12px"
+      (click)="cancelEvent(event.payment_method == 'Paiement en liquide' ? 2 : 3)">Annulez votre rendez-vous</button>
+  </div>
+  <div class="blue-box"
+    *ngIf="user.user_type =='DOCTOR' && event != null && event.type == 'Téléconsultation' && checkDatePassed()">
+    <span style="font-size: 15px;">Lancez l'appel vidéo</span><br>
+    <button type="button" class="btn btn-primary" style="font-size: 12px" (click)="launchCall()">Lancez l'appel</button>
+  </div>
+
+  <div class="blue-box row" *ngIf="user.user_type =='DOCTOR'">
+    <div  [class.col-md-6]="event != null" [class.col-md-12]="prescription?.length == 0 || event == null" *ngIf="event != null">
+      <span style="font-size: 15px;">Faire une ordonnance</span><br>
+      <button type="button" class="btn btn-primary" style="font-size: 12px"
+        (click)="makePrescription(event)">Prescrire</button>
+    </div>
+    <div class="col-md-6" *ngIf="prescription?.length >0">
+      <span style="font-size: 15px;">Consulter les prescriptions</span><br>
+      <button type="button" class="btn btn-primary" style="font-size: 12px"
+        (click)="listPrescription(prescription)">Voir</button>
+    </div>
+  </div>
+
+  <!--div class="blue-box" *ngIf="event != null && event.status > 0">
+    <span style="font-size: 15px;">Décision</span><br>
+    <span style="color: #707070; font-size: 12px" [ngClass]="{'text-primary' : (event.status == 0), 'text-success' : (event.status == 1), 'text-danger' : (event.status == 2) }">{{event.status == 0 ? "EN ATTENTE" : event.status == 1 ? "VALIDER" : "REJETER"}}</span>
+  </div-->
+  <!--div class="blue-box">
+    <span style="font-size: 15px;">Mode de paiement</span><br>
+    <span style="color: #707070; font-size: 12px">Paiement Mobile</span>
+  </div-->
+  <!--div style="display: flex; margin-bottom: 20px; margin-right: 15px; margin-left: 15px;" *ngIf="event != null">
+
+    <button class="btn event-no" *ngIf="user.user_type =='DOCTOR' &&  event.status == 0" (click)="updateEvent(2)">Refuser consultation</button>
+    <button class="btn event-yes" *ngIf="user.user_type =='DOCTOR' &&  event.status == 0" (click)="updateEvent(1)">Accepter consultation</button>
+  </div-->
+
+</div>
